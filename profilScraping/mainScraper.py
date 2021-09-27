@@ -4,7 +4,9 @@ import time
 import requests
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
-from profileScraper import scrapData
+from webdriver_manager.firefox import GeckoDriverManager
+
+# from profileScraper import scrapData
 
 pattern = "https://sharechat.com/profile/"
 
@@ -16,12 +18,22 @@ def isMatch(string, sub_str):
         return True
 
 
-driver = webdriver.Chrome(ChromeDriverManager().install())
-driver.minimize_window()
+# this section is for chrome
+option = webdriver.ChromeOptions()
+option.headless = True
+driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=option)
+
+# This sections is for firefox
+# option = webdriver.FirefoxOptions()
+# option.headless = True
+# driver = webdriver.Firefox(executable_path=GeckoDriverManager().install(),options=option)
+
+# driver.minimize_window()
 driver.get("https://sharechat.com")
 
 # Selecting specific language in this gujrati
-driver.find_element_by_xpath("//body/div[@id='root']/div[contains(@class,'Pos(f) Start(0) W(100%) T(0) H(100%) Ov(a) Z(100) Bgc($white)')]/div[contains(@class,'')]/main[contains(@class,'Pos(r) Mx(a) Pt($2xl)')]/div[contains(@class,'Py($lg) Px($sm)')]/div/div[4]/div[1]").click()
+driver.find_element_by_xpath(
+    "//body/div[@id='root']/div[contains(@class,'Pos(f) Start(0) W(100%) T(0) H(100%) Ov(a) Z(100) Bgc($white)')]/div[contains(@class,'')]/main[contains(@class,'Pos(r) Mx(a) Pt($2xl)')]/div[contains(@class,'Py($lg) Px($sm)')]/div/div[4]/div[1]").click()
 
 driver.implicitly_wait(100)
 pause_time = 2
@@ -56,7 +68,7 @@ driver.close()
 for link in hrefs:
     print(link)
     # scrapData(link)
-    # r = requests.post(url="http://localhost:8080/urls/a", json={
-    #     "profile_urls": link
-    # })
+    r = requests.post(url="http://localhost:8080/urls/a", json={
+        "profile_urls": link
+    })
     # print(r.text)
