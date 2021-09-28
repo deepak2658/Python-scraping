@@ -19,14 +19,14 @@ def isMatch(string, sub_str):
 
 
 # this section is for chrome
-option = webdriver.ChromeOptions()
-option.headless = True
-driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=option)
+# option = webdriver.ChromeOptions()
+# option.headless = True
+# driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=option)
 
 # This sections is for firefox
-# option = webdriver.FirefoxOptions()
-# option.headless = True
-# driver = webdriver.Firefox(executable_path=GeckoDriverManager().install(),options=option)
+option = webdriver.FirefoxOptions()
+option.headless = True
+driver = webdriver.Firefox(executable_path=GeckoDriverManager().install(),options=option)
 
 # driver.minimize_window()
 driver.get("https://sharechat.com")

@@ -2,6 +2,8 @@ import string
 import time
 
 from kafka import KafkaConsumer
+from webdriver_manager.firefox import GeckoDriverManager
+
 
 def isMatch(string, sub_str):
     if (string.find(sub_str) == -1):
@@ -17,9 +19,13 @@ def scrapData(url):
     import datetime
 
     # this section is for chrome
-    option = webdriver.ChromeOptions()
+    # option = webdriver.ChromeOptions()
+    # option.headless = True
+    # driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=option)
+
+    option = webdriver.FirefoxOptions()
     option.headless = True
-    driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=option)
+    driver = webdriver.Firefox(executable_path=GeckoDriverManager().install(), options=option)
 
     # driver.maximize_window()
     # driver.get("https://in.pinterest.com/")
